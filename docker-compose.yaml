@@ -1,0 +1,43 @@
+services:
+  #apache
+  web:
+    build: #docker hub images
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+
+  #php
+  app:
+    build:
+      dockerfile: ./php/Dockerfile
+
+  #mysql
+  db:
+    image: mysql:8.0
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - "3360:3306"
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_USER: zeta
+      MYSQL_PASSWORD: passme
+      MYSQL_DATABASE: first-docker-app
+  
+  #phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: db
+      PMA_PORT: "3306"
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    ports:
+      - "8008:80"
+    depends_on:
+      - db
+  #redis
+volumes:
+  mysqldata:

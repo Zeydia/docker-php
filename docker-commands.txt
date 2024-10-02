@@ -1,0 +1,35 @@
+# DOCKER COMMANDS
+
+- docker compose up
+- docker compose down
+- docker compose ps
+- docker ps
+- docker images
+
+```
+create docker-compose.yaml file
+create Dockerfile
+```
+
+- docker build -t zeta:php81 -f Dockerfile . // creation d'image -t nomImage:tag -f chemin-Dockerfile
+- docker compose up -d // demarrer et detacher le container
+
+- docker exec -it php-project-web-1 sh 
+```	
+	exec - executer une commande dans le contaidener
+	-it - terminal interactive
+	nom du container
+	sh - l'application a demmarer
+```
+#### NGINX config file path
+```bash 	
+	cat /etc/nginx/conf.d/default.conf
+```
+#### Build composer file
+```bash
+composer init
+```
+- docker compose up --build -d
+- docker compose -f docker-compose.dev.yaml up --build -d
+
+- composer dump-autoload
